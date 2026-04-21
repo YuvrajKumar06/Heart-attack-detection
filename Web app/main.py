@@ -6,17 +6,17 @@ import matplotlib.pyplot as plt
 
 def run_pipeline(image_path):
 
-    print("\n🔹 Step 1: Preprocessing...")
+    print("\nStep 1: Preprocessing...")
     processed = preprocess_ecg(image_path)
 
-    print("🔹 Step 2: Segmenting leads...")
+    print("Step 2: Segmenting leads...")
     leads = segment_leads(processed)
 
-    print("🔹 Step 3: Running model...")
+    print("Step 3: Running model...")
     result = analyze_ecg(leads)
 
     print("\n========================")
-    print("🧠 FINAL ECG REPORT")
+    print("FINAL ECG REPORT")
     print("========================")
 
     print(f"Diagnosis     : {result['diagnosis'].upper()}")
@@ -25,7 +25,7 @@ def run_pipeline(image_path):
 
     print("\nClass Probabilities:")
     
-    # 🔥 IMPORTANT: Match order with CLASS_NAMES
+    
     class_names = ["normal", "mi", "abnormal"]
 
     for i, cls in enumerate(class_names):
@@ -49,7 +49,7 @@ def run_pipeline(image_path):
         plt.show()
 
     else:
-        print("⚠️ Grad-CAM not available")
+        print("Grad-CAM not available")
 
     return result
 
@@ -59,6 +59,6 @@ if __name__ == "__main__":
     path = input("Enter ECG image path: ").strip()
 
     if not os.path.exists(path):
-        print("❌ File not found")
+        print("File not found")
     else:
         run_pipeline(path)
