@@ -36,3 +36,82 @@ MyocardAI bridges this gap by offering automated, rapid, and highly reliable ECG
 
 ## ⚙️ System Workflow
 The end-to-end pipeline takes a raw ECG image and outputs a classification prediction through the following stages:
+
+[Raw ECG Image]
+│
+▼
+[Image Preprocessing] (Remove grids, noise, standardize shape)
+│
+▼
+[CNN Model Inference] (Automatically extract visual features)
+│
+▼
+[Classification Layer] (Dense / Softmax output)
+│
+▼
+[Final Prediction] ──► [ Normal | Myocardial Infarction (MI) | Abnormal ]
+---
+
+## 🖼️ Dataset & Preprocessing Pipeline
+Raw clinical ECGs contain noise and grids that can obscure signal waveforms and confuse deep learning models. MyocardAI uses a dedicated preprocessing pipeline to clean raw images:
+
+1. **Grid Removal:** Isolates the active waveform signal by removing the red background ECG grid lines.
+2. **Grayscale Conversion:** Simplifies pixel space and reduces computational complexity.
+3. **Noise Removal:** Filters out high-frequency artifacts and scan noise.
+4. **Resizing:** Standardizes image dimensions to conform to model input parameters.
+5. **Normalization:** Normalizes pixel values to improve convergence stability during training.
+
+### Output Classes
+The model is trained to classify preprocessed images into three categories:
+* **Normal**
+* **Myocardial Infarction (MI)**
+* **Abnormal** (other cardiac anomalies)
+
+---
+
+## 🧠 Model Architecture
+The custom **Convolutional Neural Network (CNN)** automatically maps structural waveform shapes and rhythmic patterns directly from the input image:
+
+* **Input:** Preprocessed ECG Image
+* **Feature Extraction:** Multiple Convolutional layers utilizing **ReLU** activation functions paired with **Max-Pooling** operations to capture local visual patterns.
+* **Dense Classifier:** Flattened features are fed into a Fully Connected (Dense) network.
+* **Output:** **Softmax** activation layer classifying the input into one of the three target classes.
+
+---
+
+## 📈 Training Configuration & Performance
+
+### Training Parameters
+* **Optimizer:** Adam
+* **Loss Function:** Categorical Cross-Entropy
+* **Activation (Hidden Layers):** ReLU
+* **Activation (Output):** Softmax
+
+### Model Performance
+The classifier demonstrated strong overall performance, as shown in the validation test confusion matrix:
+
+| Actual \ Predicted | Normal | MI (Myocardial Infarction) | Abnormal |
+| :--- | :---: | :---: | :---: |
+| **Normal** | **91%** | 4% | 5% |
+| **MI** | 3% | **93%** | 4% |
+| **Abnormal** | 6% | 5% | **89%** |
+
+---
+
+## 🚀 Future Scope
+To scale MyocardAI into a production-grade clinical application, future updates will focus on:
+* **Disease Scope:** Expanding classification classes to detect additional specific heart conditions (e.g., arrhythmias, bundle branch blocks).
+* **Mobile Integration:** Developing a lightweight version of the model to run on smartphones for field deployments.
+* **Cloud & Real-time Deployment:** Moving inference to cloud environments to allow real-time ECG telemetry analysis.
+* **Explainable AI (XAI):** Implementing attention mapping techniques (such as Grad-CAM) to visually highlight which regions of the ECG waveform influenced the model's prediction.
+
+---
+
+## 🛠️ Tech Stack
+* **Language:** Python
+* **Deep Learning Framework:** TensorFlow / Keras
+* **Computer Vision:** OpenCV
+
+---
+
+*Presented by Yuvraj Kumar*
