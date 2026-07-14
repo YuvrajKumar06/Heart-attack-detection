@@ -113,5 +113,3 @@ To scale MyocardAI into a production-grade clinical application, future updates 
 * **Computer Vision:** OpenCV
 
 ---
-
-*Presented by Yuvraj Kumar*
